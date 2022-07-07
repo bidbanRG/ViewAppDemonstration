@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import qrc from './QR.png'
 import mob1 from './mod1.jpeg';
 import mobvid from './mobvid.mp4';
+import expo from './Expo.png';
 import {useState,useEffect,useRef} from 'react';
 
 function App() {
 
   const [copied,setCopied] = useState(false);
+  const [width,setWidth] = useState(window.innerWidth);
+  
   const InputRef = useRef(null);
   const VideoRef = useRef(null);
   useEffect(() => {
@@ -19,6 +22,15 @@ function App() {
       return () => clearTimeout(fun,2500);
      }
  },[copied])
+ 
+
+  useEffect(() => {
+     window.addEventListener('resize',() => setWidth(window.innerWidth));
+     
+
+     return () => window.removeEventListener('resize',() => setWidth(window.innerWidth));
+
+  },[width]);
 
   const onCopy = () => {
   
@@ -34,18 +46,38 @@ const scrollTo = () => VideoRef.current.scrollIntoView({behavior: "smooth"});
 
   return (
     <Screen>
-        <h1> You can open the Application in 2 ways </h1>
-        <h2> 1. Scan the QRCode after installing the Expo Go App </h2> 
-          <Demo onClick = {scrollTo}> { "Demo" } </Demo>
+       <h1> A Full Stack Pdf to Audio Converter App, extract the text from the Pdf and convert it into speech   </h1>
+     <h1> Download the Expo Go <Expo src = {expo} />  App In your IOS or Android Phone </h1>
+        <h1> You can open my Application in 2 ways </h1>
+
+        { 720 < parseInt(width) ? <>
+          <h2> 1. Scan the QRCode with Expo Go App after installation </h2> 
+            <Demo onClick = {scrollTo}> { "Demo" } </Demo>
             <QRCode src = {qrc} alt = 'qr code'/>
               <h2> 2. Open The Expo Go App copy and paste the Url then click connect </h2>
            <center>
               <Input ref = {InputRef} value = 'exp://exp.host/@bidbanrg/Bidisha_Audio?release-channel=default'/> 
                 <CopyToClipboard Copied = {copied} onClick = {onCopy}> { !copied ? "Copy" : "Copied" } </CopyToClipboard>
          </center>   
-             <MobileImage src = {mob1}/>
-            <h2> A little Demonstration about scanning the QRCode   </h2>
-            <MobileVideo ref = {VideoRef} onClick = {scrollTo}  src = {mobvid} autoPlay  muted loop = 'true'/>
+                <MobileImage src = {mob1}/>
+               </> : 
+               <>
+                  <h2> 1. Open The Expo Go App copy and paste the Url then click connect </h2>
+           <center>
+              <Input ref = {InputRef} value = 'exp://exp.host/@bidbanrg/Bidisha_Audio?release-channel=default'/> 
+              <CopyToClipboard Copied = {copied} onClick = {onCopy}> { !copied ? "Copy" : "Copied" } </CopyToClipboard>
+         </center>   
+            <MobileImage src = {mob1}/>
+            <h2> 2. Scan the QRCode after installing the Expo Go App </h2> 
+            <Demo onClick = {scrollTo}> { "Demo" } </Demo>
+            <QRCode src = {qrc} alt = 'qr code'/>
+   
+
+               </>
+           }    
+            <h2 ref = {VideoRef} > A little Demonstration about scanning the QRCode  </h2>
+            <h4> (ios users may not have the Scan QR code option, in that case just scan it with the camera it will open up with Expo Go)  </h4>
+            <MobileVideo  onClick = {scrollTo}  src = {mobvid} autoPlay  muted loop = 'true'/>
     </Screen>
   );
 }
@@ -54,6 +86,13 @@ const Center = styled.div`
   display:flex;
   align-items:center;
   justify-content:space-between;
+
+`
+const Expo = styled.img`
+   height:30px;
+   @media(max-width:720px){
+    height:20px;
+   }
 
 `
 const Demo = styled.button`
@@ -103,12 +142,30 @@ const Screen = styled.div`
     flex-direction:column;
     align-items:center;
     color:white;
-    font-size:1.5vw;
+    font-size:50%;
+    @media(min-width:720px){
+      font-size:100%;
+      h2{
+         font-size:1rem;
+         
+      }
+    }h2{
+         
+         text-align:center;
+      }h4{
+         
+         text-align:center;
+      }
+    h1{
+      text-align:center;
+    }
+
 ` 
 
 const QRCode = styled.img`
   margin-top:30px;
   width:30%;
+  min-width:300px;
   margin-bottom:20px;
 `
 const Input = styled.input`
