@@ -56,7 +56,8 @@ const scrollTo = () => VideoRef.current.scrollIntoView({behavior: "smooth"});
             <QRCode src = {qrc} alt = 'qr code'/>
               <h2> 2. Open The Expo Go App copy and paste the Url then click connect </h2>
            <center>
-              <Input ref = {InputRef} value = 'exp://exp.host/@bidbanrg/Bidisha_Audio?release-channel=default'/> 
+              <Input ref = {InputRef} 
+              value = 'exp://exp.host/@bidbanrg/pdf-to-audio?release-channel=default'/> 
                 <CopyToClipboard Copied = {copied} onClick = {onCopy}> { !copied ? "Copy" : "Copied" } </CopyToClipboard>
          </center>   
                 <MobileImage src = {mob1}/>
@@ -64,7 +65,7 @@ const scrollTo = () => VideoRef.current.scrollIntoView({behavior: "smooth"});
                <>
                   <h2> 1. Open The Expo Go App copy and paste the Url then click connect </h2>
            <center>
-              <Input ref = {InputRef} value = 'exp://exp.host/@bidbanrg/Bidisha_Audio?release-channel=default'/> 
+              <Input ref = {InputRef} value = 'exp://exp.host/@bidbanrg/pdf-to-audio?release-channel=default'/> 
               <CopyToClipboard Copied = {copied} onClick = {onCopy}> { !copied ? "Copy" : "Copied" } </CopyToClipboard>
          </center>   
             <MobileImage src = {mob1}/>
